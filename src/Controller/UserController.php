@@ -27,20 +27,24 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            // Vérifiez si les données correspondent aux critères requis
+            // pour le compte admin
+            
             if ($data['username'] === 'mariam' && $data['mail'] === 'mariambahouri12@gmail.com') {
-                // Rediriger vers la page d'administration
+               
+
                 return $this->redirectToRoute('admin');
             } else {
-                // Rechercher l'utilisateur dans la base de données
+
+                // Rechercher de lutilisateur dans la BD
                 $entityManager = $doctrine->getManager();
                 $user = $entityManager->getRepository(User::class)->findOneBy(['username' => $data['username'], 'mail' => $data['mail']]);
 
                 if ($user) {
-                    // Rediriger en fonction du genre et du poids de l'utilisateur
+                
+
                     return $this->redirectToRoute('user.fitness_start', ['id' => $user->getId()]);
                 } else {
-                    // Rediriger vers la page d'ajout d'utilisateur
+                    
                     return $this->redirectToRoute('user.add');
                 }
             }
@@ -70,16 +74,18 @@ class UserController extends AbstractController
         $user = new USER();
         $form = $this->createForm(UserType::class, $user);
         
-        // Gérer la soumission du formulaire
+      
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            // Traitement après soumission valide du formulaire
+
+ 
             $entityManager->persist($user);
             $entityManager->flush();
-            // Ajouter un message flash (optionnel)
+
+         
             $this->addFlash('success', 'Utilisateur ajouté avec succès');
 
-            // Redirection vers la page de bienvenue
             return $this->redirectToRoute('user.welcome', ['id' => $user->getId()]);
         }
     

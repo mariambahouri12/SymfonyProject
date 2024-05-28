@@ -8,3 +8,9 @@ search_exercises:
     path: /exercises/search
     controller: App\Controller\ExerciceController::search
     methods: GET
+
+search_exercises1:
+    path: /sous/search
+    controller: App\Controller\SousController::search
+    methods: GET
+

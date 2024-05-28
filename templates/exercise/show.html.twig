@@ -9,13 +9,13 @@
 <body style="background-color: pink;">
     {% block body %}
         <div style="display: flex; justify-content: space-between;">
-            <div style="flex: 1; margin-right: 20px;">
-                <img src="{{ asset('FemmeSurPoids/' ~ exercise.image) }}" alt="{{ exercise.title }}" style="width: 400px; height: 500px;">
+            <div style=" margin-left: 50px;margin-top:30px;">
+                <img src="{{ asset('FemmeSurPoids/' ~ exercise.image) }}" alt="{{ exercise.title }}" style="width: 400px; height: 500px;margin-letf:60px;">
             </div>
-            <div style="flex: 1;">
-                <h1>{{ exercise.title }}</h1>
-                <p>{{ exercise.description }}</p>
-                <button class="btn btn-primary" onclick="addToView('{{ exercise.title }}', '{{ asset('FemmeSurPoids/' ~ exercise.image) }}')">Add</button>
+            <div  style="margin-left:50px;">
+                <h1 >{{ exercise.title }}</h1>
+                <p style="font-size:30px;" >{{ exercise.description }}</p>
+                <button class="btn btn-primary" onclick="addToView('{{ exercise.title }}', '{{ asset('FemmeSurPoids/' ~ exercise.image) }}')" style="width:150px;">Add</button>
             </div>
         </div>
     {% endblock %}

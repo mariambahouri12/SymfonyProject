@@ -12,9 +12,10 @@
             <div style="flex: 1; margin-right: 20px;">
                 <img src="{{ asset('SousPoids/' ~ exercise.image) }}" alt="{{ exercise.title }}" style="width: 400px; height: 500px;">
             </div>
-            <div style="flex: 1;">
+            <div style="margin-left:50px;">
                 <h1>{{ exercise.title }}</h1>
-                <p>{{ exercise.description }}</p>
+                <p style="font-size:30px">{{ exercise.description }}</p>
+                     <button class="btn btn-primary" onclick="addToView('{{ exercise.title }}', '{{ asset('SousPoids/' ~ exercise.image) }}')" style="width:150px;">Add</button>
             </div>
         </div>
     {% endblock %}

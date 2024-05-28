@@ -6,7 +6,13 @@
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     {% block stylesheets %}{% endblock %}
 </head>
-<body style="background-color: pink;">   
+<body style="background-color: pink;">
+    <div style="background-color: pink; padding: 10px;">
+        <form id="searchForm" action="{{ path('search_exercises') }}" method="GET">
+            <input id="searchInput" type="text" name="title" placeholder="Search exercises..." style="width:92%;height:100%;">
+            <button type="submit">Search</button>
+        </form>
+    </div> 
     {% block body %}
         <h1>Exercises for Underweight</h1>
         <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
@@ -20,6 +26,7 @@
                                 <img src="{{ asset('SousPoids/' ~ exercise.image) }}" alt="{{ exercise.title }}" style="width: 200px; height: 200px; object-fit: cover;">
                             </a>
                             <p>{{ exercise.title }}</p>
+                            <button>add</button>
                         </div>
                     {% endif %}
                 {% endfor %}
@@ -35,6 +42,7 @@
                                 <img src="{{ asset('SousPoids/' ~ exercise.image) }}" alt="{{ exercise.title }}" style="width: 200px; height: 200px; object-fit: cover;">
                             </a>
                             <p>{{ exercise.title }}</p>
+                            <button>add</button>
                         </div>
                     {% endif %}
                 {% endfor %}
@@ -50,11 +58,22 @@
                                 <img src="{{ asset('SousPoids/' ~ exercise.image) }}" alt="{{ exercise.title }}" style="width: 200px; height: 200px; object-fit: cover;">
                             </a>
                             <p>{{ exercise.title }}</p>
+                            <button>add</button>
                         </div>
                     {% endif %}
                 {% endfor %}
             </div>
         </div>
+    {% endblock %}
+    {% block javascripts %}
+    <script>
+        document.getElementById("searchInput").addEventListener("keypress", function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("searchForm").submit();
+            }
+        });
+    </script>
     {% endblock %}
 
 </body>
