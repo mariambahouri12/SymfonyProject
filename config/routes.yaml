@@ -3,3 +3,8 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+search_exercises:
+    path: /exercises/search
+    controller: App\Controller\ExerciceController::search
+    methods: GET

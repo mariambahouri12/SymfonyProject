@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}View Exercises{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body style="background-color: pink;">
+    <h1>Selected Exercises</h1>
+    <div id="viewContainer">
+        {# Conteneur pour les exercices sélectionnés #}
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{# templates/exercise/delete_confirm.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirm Delete Exercise{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .form-container {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+            width: 400px;
+            height: 200px;
+            text-align: center;
+        }
+        .form-container button {
+            margin-top: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <body style="background-color: pink;">
+        <div class="form-container">
+            <h1>Confirm Delete Exercise</h1>
+            <p>Are you sure you want to delete the exercise "{{ exercise.title }}"?</p>
+
+            <form method="post" action="{{ path('exercise_delete_confirm', {'id': exercise.id}) }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ exercise.id) }}">
+                <button class="btn">Delete</button>
+            </form>
+        </div>
+    </body>
+{% endblock %}

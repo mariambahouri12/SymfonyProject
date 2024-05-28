@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Optimal Weight{% endblock %}
+
+{% block body %}
+<div style="margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-color: lightblue; width: 400px; text-align: center;">
+    <h2>Your Optimal Weight</h2>
+    <p>Your optimal weight based on your height and gender is: {{ optimalWeight }} kg</p>
+    <a href="{{ path('user.add') }}" class="btn btn-primary">Back to User Form</a>
+</div>
+{% endblock %}

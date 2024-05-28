@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Update Exercise{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .form-container {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+            width: 400px;
+            height: 500px;
+        }
+        .form-container label {
+            display: inline-block;
+            width: 100px; /* Ajustez la largeur selon vos besoins */
+            text-align: right;
+            margin-left: 10px; /* Espacement de 50px entre le label et le champ */
+        }
+        .form-container input[type="text"], 
+        .form-container input[type="email"] {
+            border: none;
+            border-bottom: 2px solid #ccc;
+            background-color: transparent;
+            color: #000;
+            padding: 5px;
+            margin-bottom: 10px;
+            width: calc(100% - 100px); /* Ajustez la largeur selon vos besoins */
+            font-size: 14px;
+            height: 30px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <body style="background-color: pink;">
+        <div class="form-container">
+            <h1 >update Exercise</h1>
+
+            {{ form_start(form) }}
+                <div style="margin-bottom: 15px;">
+                    {{ form_row(form.title) }}
+                </div>
+                <div style="margin-bottom: 15px;">
+                    {{ form_row(form.description) }}
+                </div>
+                <div style="margin-bottom: 15px;">
+                    {{ form_row(form.image) }}
+                </div>
+                <div style="margin-bottom: 15px;">
+                    {{ form_row(form.category) }}
+                </div>
+                <div>
+                    <button class="btn" style="margin-left:20px;margin-top:30px;width:150px">Update</button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </body>
+{% endblock %}

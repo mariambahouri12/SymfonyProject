@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Exercise Details{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body style="background-color: pink;">
+    {% block body %}
+        <div style="display: flex; justify-content: space-between;">
+            <div style="flex: 1; margin-right: 20px;">
+                <img src="{{ asset('FemmeSurPoids/' ~ exercise.image) }}" alt="{{ exercise.title }}" style="width: 400px; height: 500px;">
+            </div>
+            <div style="flex: 1;">
+                <h1>{{ exercise.title }}</h1>
+                <p>{{ exercise.description }}</p>
+                <button class="btn btn-primary" onclick="addToView('{{ exercise.title }}', '{{ asset('FemmeSurPoids/' ~ exercise.image) }}')">Add</button>
+            </div>
+        </div>
+    {% endblock %}
+    <script>
+        function addToView(title, image) {
+            var exerciseContainer = document.getElementById("viewContainer");
+            var exerciseDiv = document.createElement("div");
+            var exerciseImg = document.createElement("img");
+            var exerciseTitle = document.createElement("p");
+
+            exerciseImg.src = image;
+            exerciseImg.alt = title;
+            exerciseImg.style.width = "200px";
+            exerciseImg.style.height = "200px";
+            exerciseImg.style.objectFit = "cover";
+
+            exerciseTitle.textContent = title;
+
+            exerciseDiv.appendChild(exerciseImg);
+            exerciseDiv.appendChild(exerciseTitle);
+            
+            exerciseContainer.appendChild(exerciseDiv);
+        }
+    </script>
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

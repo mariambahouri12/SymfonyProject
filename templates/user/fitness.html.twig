@@ -1,0 +1,14 @@
+{# templates/user/fitness.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Programme de Fitness{% endblock %}
+
+{% block body %}
+ <body style="background-color: pink;">
+    <div style="margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-color: white; width: 350px; text-align: center;margin-top:200px;">
+        <h1>Programme de Fitness pour {{ user.username }}</h1>
+        <p>Nous allons vous aider à atteindre votre taille idéale avec notre programme de fitness.</p>
+        <a href="{{ path('user.fitness_start', {id: user.id}) }}" class="btn btn-primary">Start Now!</a>
+    </div>
+    </body>
+{% endblock %}

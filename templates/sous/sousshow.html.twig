@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Exercise Details{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body style="background-color: pink;">
+    {% block body %}
+        <div style="display: flex; justify-content: space-between;">
+            <div style="flex: 1; margin-right: 20px;">
+                <img src="{{ asset('SousPoids/' ~ exercise.image) }}" alt="{{ exercise.title }}" style="width: 400px; height: 500px;">
+            </div>
+            <div style="flex: 1;">
+                <h1>{{ exercise.title }}</h1>
+                <p>{{ exercise.description }}</p>
+            </div>
+        </div>
+    {% endblock %}
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

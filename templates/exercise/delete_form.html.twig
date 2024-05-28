@@ -1,0 +1,30 @@
+{# templates/exercise/delete_form.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Delete Exercise{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .form-container {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+            width: 400px;
+            height: 200px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <body style="background-color: pink;">
+        <div class="form-container">
+            <h1>Delete Exercise</h1>
+            {{ form_start(form) }}
+                {{ form_row(form.id) }}
+                <button class="btn">Find Exercise</button>
+            {{ form_end(form) }}
+        </div>
+    </body>
+{% endblock %}

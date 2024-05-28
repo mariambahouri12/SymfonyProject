@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>
+        body {
+            background-color: pink;
+        }
+        .white-text {
+            color: white;
+            background-color: white;
+            height: 500px;
+            width: 400px;
+            margin-left: 400px;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .button-container button {
+            width: 400px;
+            transition: all 0.3s;
+        }
+        .button-container button:hover {
+            transform: scale(1.1);
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="margin-left: 450px;">Admin Dashboard</h1>
+    <div class="container white-text">
+        <div class="button-container">
+            <a href="#"><button style="height: 160px;">Modify Underweight Exercises</button></a>
+            <a href="{{ path('admin1') }}"><button style="height: 160px;">Modify Overweight Exercises</button></a>
+            <a href="#"><button style="height: 180px;">Modify Normal Weight Exercises</button></a>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

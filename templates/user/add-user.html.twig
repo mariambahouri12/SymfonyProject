@@ -1,0 +1,41 @@
+{% block body %}
+    <body style="background-color: pink;">
+        <div style="margin-left: 500px; margin-top: 50px; background-color: white; width: 350px; height: 500px; text-align: center;">
+            {{ form_start(form) }}
+            <br><br>
+            <h1>Please Fill the form</h1>
+            <br><br>
+            <div style="margin-bottom: 15px;">
+                <label for="username" style="margin-right: 40px;">Username</label>
+                {{ form_widget(form.username) }}
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="mail" style="margin-right: 70px;">Mail</label>
+                {{ form_widget(form.mail) }}
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="age" style="margin-right: 75px; style="border: none; border-bottom: 2px solid purple">Age</label>
+                {{ form_widget(form.age) }}
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="gender" style="margin-right: 55px;">Gender</label>
+                {{ form_widget(form.gender) }}
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="height" style="margin-right: 65px;">Height</label>
+                {{ form_widget(form.height) }}
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="weight" style="margin-right: 65px;">Weight</label>
+                {{ form_widget(form.weight) }}
+            </div>
+            <div style="margin-top: 50px;">
+                {{ form_row(form.editer) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </body>
+{% endblock %}
+
+{% block title %}
+{% endblock %}

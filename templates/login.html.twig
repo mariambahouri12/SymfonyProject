@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .form-container {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white; /* Couleur de fond du cadre du formulaire */
+            width: 350px;
+            height: auto;
+            text-align: center;
+        }
+        .form-title {
+            margin-bottom: 20px;
+            font-size: 40px;
+            color: purple; /* Rose foncé */
+        }
+        /* Style du bouton */
+        .form-container input[type="submit"],
+        .form-container button[type="submit"] { /* Style pour les boutons de type submit */
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s; /* Transition fluide */
+        }
+        /* Effet d'agrandissement lorsque la souris passe dessus */
+        .form-container input[type="submit"]:hover,
+        .form-container button[type="submit"]:hover {
+            transform: scale(1.1); /* Agrandissement de 10% */
+        }
+        /* Effet de réduction lorsque le bouton est cliqué */
+        .form-container input[type="submit"]:active,
+        .form-container button[type="submit"]:active {
+            transform: scale(0.9); /* Réduction de 10% */
+        }
+        /* Style des labels */
+        .form-container label {
+            display: inline-block;
+            width: 100px; /* Ajustez la largeur selon vos besoins */
+            text-align: right;
+            margin-right: 10px;
+        }
+        /* Style des textfields */
+        .form-container input[type="text"], 
+        .form-container input[type="email"] {
+            border: none; /* Suppression de la bordure par défaut */
+            border-bottom: 2px solid purple; /* Bordure semi en bas */
+            background-color: transparent; /* Fond transparent */
+            color: purple; /* Couleur du texte */
+            padding: 5px; /* Ajustement de l'espacement à l'intérieur */
+            margin-bottom: 10px; /* Espacement vers le bas */
+            width: calc(100% - 10px); /* Largeur du champ avec la marge */
+            font-size: 14px; /* Réduction de la taille de la police */
+            height: 30px; /* Réduction de la hauteur du champ */
+            margin-left:25px;
+        }
+        /* Style des labels */
+        .form-container label {
+            display: inline-block;
+            width: 100px; /* Ajustez la largeur selon vos besoins */
+            text-align: right;
+            margin-right: 200px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <body style="background-color: pink;"> <!-- Ajout de la couleur de fond ici -->
+        <div class="form-container" style="margin-top: 100px; height: 400px;">
+            <div class="form-title">Welcome to Fitnesson</div> <!-- Titre centré en rose foncé -->
+            {{ form_start(form) }}
+            <div style="margin-bottom: 15px; margin-top: 50px;margin-right:50px">
+                {{ form_row(form.username) }}
+            </div>
+            <div style="margin-bottom: 15px;margin-right:50px">
+                {{ form_row(form.mail) }}
+            </div>
+            <div style="margin-top: 60px;">
+                {{ form_row(form.submit) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </body>
+{% endblock %}
