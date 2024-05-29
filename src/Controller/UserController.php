@@ -45,19 +45,7 @@ class UserController extends AbstractController
                 if ($user) {
                     return $this->redirectToRoute('user.fitness_start', ['id' => $user->getId()]);
                 } else {
-                    $newUser = new USER();
-                    $newUser->setUsername($data['username']);
-                    $newUser->setMail($data['mail']);
-                    $newUser->setMail($data['height']);
-                    $newUser->setMail($data['gender']);
-                    $newUser->setMail($data['weight']);
-                    $newUser->setMail($data['age']);
-
-
-                    $entityManager->persist($newUser);
-                    $entityManager->flush();
-
-                    return $this->redirectToRoute('user.fitness_start', ['id' => $newUser->getId()]);
+                    return $this->redirectToRoute('user.add');
                 }
             }
         }
