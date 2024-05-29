@@ -35,7 +35,7 @@ class ExerciceController extends AbstractController
                 $entityManager->flush();
 
                 $this->addFlash('success', 'Exercise created successfully.');
-                return $this->redirectToRoute('exercise_show', ['id' => $exercise->getId()]);
+                return $this->redirectToRoute('exercise_new');
             }
         }
 
@@ -66,30 +66,13 @@ public function update(Request $request, ManagerRegistry $doctrine): Response
             return $this->redirectToRoute('exercise_update');
         } else {
             $this->addFlash('error', 'Exercise does not exist.');
-            return $this->redirectToRoute('exercise_update');
         }
     }
     return $this->render('exercise/update.html.twig', [
         'form' => $form->createView(),
     ]);
 }
-    #[Route('/{id}', name: 'exercise_show')]
-    public function show(ExerciceSurPoidsFemme $exercise): Response
-    {
-        return $this->render('exercise/show.html.twig', [
-            'exercise' => $exercise,
-        ]);
-    }
 
-    #[Route('/', name: 'exercise_index')]
-    public function index(ManagerRegistry $doctrine): Response
-    {
-        $exercises = $doctrine->getRepository(ExerciceSurPoidsFemme::class)->findAll();
-
-        return $this->render('exercise/index.html.twig', [
-            'exercises' => $exercises,
-        ]);
-    }
 
     #[Route('/search', name: 'search_exercises')]
     public function search(Request $request, ManagerRegistry $doctrine): Response
@@ -152,6 +135,22 @@ public function deleteConfirm(Request $request, ManagerRegistry $doctrine, int $
     }
 
     return $this->render('exercise/delete_confirm.html.twig', [
+        'exercise' => $exercise,
+    ]);
+}
+#[Route('/', name: 'exercise_index')]
+public function index(ManagerRegistry $doctrine): Response
+{
+    $exercises = $doctrine->getRepository(ExerciceSurPoidsFemme::class)->findAll();
+
+    return $this->render('exercise/index.html.twig', [
+        'exercises' => $exercises,
+    ]);
+}
+#[Route('/{id}', name: 'exercise_show')]
+public function show(ExerciceSurPoidsFemme $exercise): Response
+{
+    return $this->render('exercise/show.html.twig', [
         'exercise' => $exercise,
     ]);
 }
