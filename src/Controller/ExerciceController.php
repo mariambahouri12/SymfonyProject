@@ -63,9 +63,10 @@ public function update(Request $request, ManagerRegistry $doctrine): Response
             
             $this->addFlash('success', 'Exercise updated successfully.');
             
-            return $this->redirectToRoute('exercise_show', ['id' => $existingExercise->getId()]);
+            return $this->redirectToRoute('exercise_update');
         } else {
             $this->addFlash('error', 'Exercise does not exist.');
+            return $this->redirectToRoute('exercise_update');
         }
     }
     return $this->render('exercise/update.html.twig', [

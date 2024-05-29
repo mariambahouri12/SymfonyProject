@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\USER;
 use App\Entity\ExerciceSurPoidsFemme;
+use App\Entity\Admin;
 use App\Entity\SousPoids;
 use App\Form\LoginType;
 use App\Form\UserType;
@@ -19,18 +20,24 @@ class UserController extends AbstractController
 {
     #[Route('/login', name: 'login')]
     public function login(Request $request, ManagerRegistry $doctrine): Response
-    {
-        $form = $this->createForm(LoginType::class);
+{
+    $form = $this->createForm(LoginType::class);
 
-        $form->handleRequest($request);
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+    if ($form->isSubmitted() && $form->isValid()) {
+        $data = $form->getData();
 
-            // pour le compte admin
-            if ($data['username'] === 'mariam' && $data['mail'] === 'mariambahouri12@gmail.com') {
-                return $this->redirectToRoute('admin');
-            } else {
+        $adminRepository = $doctrine->getRepository(Admin::class);
+        $admin = $adminRepository->findOneBy([
+            'adminname' => $data['username'],
+            'mail' => $data['mail']
+        ]);
+
+        if ($admin) {
+
+            return $this->redirectToRoute('admin');
+        }else {
                 // Rechercher de l'utilisateur dans la BD
                 $entityManager = $doctrine->getManager();
                 $user = $entityManager->getRepository(USER::class)->findOneBy(['username' => $data['username'], 'mail' => $data['mail']]);
@@ -38,7 +45,6 @@ class UserController extends AbstractController
                 if ($user) {
                     return $this->redirectToRoute('user.fitness_start', ['id' => $user->getId()]);
                 } else {
-                   
                     $newUser = new USER();
                     $newUser->setUsername($data['username']);
                     $newUser->setMail($data['mail']);
