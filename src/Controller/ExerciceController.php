@@ -125,27 +125,34 @@ public function update(Request $request, ManagerRegistry $doctrine): Response
         ]);
     }
 
-    #[Route('/delete/confirm/{id}', name: 'exercise_delete_confirm', methods: ['GET', 'POST'])]
-    public function deleteConfirm(Request $request, ManagerRegistry $doctrine, int $id): Response
+    #[Route('/delete/success', name: 'exercise_delete_success')]
+    public function successDelete(): Response
     {
-        $exercise = $doctrine->getRepository(ExerciceSurPoidsFemme::class)->find($id);
-
-        if (!$exercise) {
-            throw new NotFoundHttpException('Exercise not found.');
-        }
-
-        if ($request->isMethod('POST')) {
-            if ($this->isCsrfTokenValid('delete'.$exercise->getId(), $request->request->get('_token'))) {
-                $entityManager = $doctrine->getManager();
-                $entityManager->remove($exercise);
-                $entityManager->flush();
-            }
-
-        }
-
-        return $this->render('exercise/delete_confirm.html.twig', [
-            'exercise' => $exercise,
-        ]);
+        return $this->render('exercise/successdelete.html.twig');
     }
+#[Route('/delete/confirm/{id}', name: 'exercise_delete_confirm', methods: ['GET', 'POST'])]
+public function deleteConfirm(Request $request, ManagerRegistry $doctrine, int $id): Response
+{
+    $exercise = $doctrine->getRepository(ExerciceSurPoidsFemme::class)->find($id);
+
+    if (!$exercise) {
+        throw new NotFoundHttpException('Exercise not found.');
+    }
+
+    if ($request->isMethod('POST')) {
+        if ($this->isCsrfTokenValid('delete'.$exercise->getId(), $request->request->get('_token'))) {
+            $entityManager = $doctrine->getManager();
+            $entityManager->remove($exercise);
+            $entityManager->flush();
+
+            
+            return new RedirectResponse($this->generateUrl('exercise_delete_success'));
+        }
+    }
+
+    return $this->render('exercise/delete_confirm.html.twig', [
+        'exercise' => $exercise,
+    ]);
+}
 
 }
