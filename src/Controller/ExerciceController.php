@@ -17,28 +17,31 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class ExerciceController extends AbstractController
 {
     #[Route('/new', name: 'exercise_new')]
-   public function new(Request $request, ManagerRegistry $doctrine): Response
-{
-    $exercise = new ExerciceSurPoidsFemme();
-    $form = $this->createForm(ExerciceFemaleSurpoidsType::class, $exercise);
+    public function new(Request $request, ManagerRegistry $doctrine): Response
+    {
+        $exercise = new ExerciceSurPoidsFemme();
+        $form = $this->createForm(ExerciceFemaleSurpoidsType::class, $exercise);
 
-    $form->handleRequest($request);
-    if ($form->isSubmitted() && $form->isValid()) {
-        $existingExercise = $doctrine->getRepository(ExerciceSurPoidsFemme::class)->findOneBy(['title' => $exercise->getTitle()]);
-        if (!$existingExercise){}
-        // Crée un nouvel exercice
-            $entityManager = $doctrine->getManager();
-            $entityManager->persist($exercise);
-            $entityManager->flush();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $existingExercise = $doctrine->getRepository(ExerciceSurPoidsFemme::class)->findOneBy(['title' => $exercise->getTitle()]);
+            if ($existingExercise) {
+                $this->addFlash('error', 'Exercise already exists.');
+                return $this->redirectToRoute('exercise_new');
+            } else {
+                // Crée un nouvel exercice
+                $entityManager = $doctrine->getManager();
+                $entityManager->persist($exercise);
+                $entityManager->flush();
 
-            $this->addFlash('success', 'Exercise created successfully.');
+                $this->addFlash('success', 'Exercise created successfully.');
+                return $this->redirectToRoute('exercise_show', ['id' => $exercise->getId()]);
+            }
+        }
 
-            return $this->redirectToRoute('exercise_show', ['id' => $exercise->getId()]);
-    }
-
-    return $this->render('exercise/new.html.twig', [
-        'form' => $form->createView(),
-    ]);
+        return $this->render('exercise/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
 }
 #[Route('/update', name: 'exercise_update')]
 public function update(Request $request, ManagerRegistry $doctrine): Response
@@ -48,19 +51,22 @@ public function update(Request $request, ManagerRegistry $doctrine): Response
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
-        // Vérifie si un exercice avec le même titre existe déjà
+     
         $existingExercise = $doctrine->getRepository(ExerciceSurPoidsFemme::class)->findOneBy(['title' => $exercise->getTitle()]);
         if ($existingExercise) {
-            // Met à jour les informations de l'exercice existant avec les nouvelles données
+           
             $existingExercise->setDescription($exercise->getDescription());
             $existingExercise->setImage($exercise->getImage());
             $existingExercise->setCategory($exercise->getCategory());
             $doctrine->getManager()->flush();
+            //flash
             
             $this->addFlash('success', 'Exercise updated successfully.');
             
             return $this->redirectToRoute('exercise_show', ['id' => $existingExercise->getId()]);
-        } 
+        } else {
+            $this->addFlash('error', 'Exercise does not exist.');
+        }
     }
     return $this->render('exercise/update.html.twig', [
         'form' => $form->createView(),
