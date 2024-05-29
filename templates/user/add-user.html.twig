@@ -1,41 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .form-container {
+            background-color: white;
+            width: 350px;
+            height: 650px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .form-container label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-container .form-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        .form-container input[type="submit"],
+        .form-container button[type="submit"] {
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%; 
+            background-color: purple; 
+            color: white; 
+        }
+
+        .form-container input[type="submit"]:hover,
+        .form-container button[type="submit"]:hover {
+            transform: scale(1.1);
+        }
+
+        .form-container input[type="submit"]:active,
+        .form-container button[type="submit"]:active {
+            transform: scale(0.9);
+        }
+
+        .form-container input,
+        .form-container select {
+            border: none;
+            border-bottom: 2px solid purple;
+            background-color: transparent;
+            color: purple;
+            padding: 5px;
+            margin-bottom: 10px;
+            width: calc(100% - 20px);
+            font-size: 14px;
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+        
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
     <body style="background-color: pink;">
-        <div style="margin-left: 500px; margin-top: 50px; background-color: white; width: 350px; height: 500px; text-align: center;">
+        <div class="form-container" style="margin-left: 500px;">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
             {{ form_start(form) }}
-            <br><br>
-            <h1>Please Fill the form</h1>
-            <br><br>
-            <div style="margin-bottom: 15px;">
-                <label for="username" style="margin-right: 40px;">Username</label>
+            <h1>Please Fill the Form</h1>
+            <div class="form-group">
+                <label for="username">Username</label>
                 {{ form_widget(form.username) }}
             </div>
-            <div style="margin-bottom: 15px;">
-                <label for="mail" style="margin-right: 70px;">Mail</label>
+            <div class="form-group">
+                <label for="mail">Mail</label>
                 {{ form_widget(form.mail) }}
             </div>
-            <div style="margin-bottom: 15px;">
-                <label for="age" style="margin-right: 75px; style="border: none; border-bottom: 2px solid purple">Age</label>
+            <div class="form-group">
+                <label for="age">Age</label>
                 {{ form_widget(form.age) }}
             </div>
-            <div style="margin-bottom: 15px;">
-                <label for="gender" style="margin-right: 55px;">Gender</label>
+            <div class="form-group">
+                <label for="gender">Gender</label>
                 {{ form_widget(form.gender) }}
             </div>
-            <div style="margin-bottom: 15px;">
-                <label for="height" style="margin-right: 65px;">Height</label>
+            <div class="form-group">
+                <label for="height">Height</label>
                 {{ form_widget(form.height) }}
             </div>
-            <div style="margin-bottom: 15px;">
-                <label for="weight" style="margin-right: 65px;">Weight</label>
+            <div class="form-group">
+                <label for="weight">Weight</label>
                 {{ form_widget(form.weight) }}
             </div>
-            <div style="margin-top: 50px;">
-                {{ form_row(form.editer) }}
+            <div style="margin-top: 10px;">
+                {{ form_widget(form.editer, {'attr': {'class': 'wide-button'}}) }}
             </div>
             {{ form_end(form) }}
         </div>
     </body>
 {% endblock %}
 
-{% block title %}
-{% endblock %}

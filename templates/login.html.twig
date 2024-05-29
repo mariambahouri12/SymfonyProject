@@ -70,6 +70,18 @@
             text-align: right;
             margin-right: 200px;
         }
+
+        .first-visit {
+            display: block;
+            margin-top: 20px;
+            font-size: 14px;
+            color: purple;
+            text-decoration: none;
+        }
+
+        .first-visit:hover {
+            text-decoration: underline;
+        }
     </style>
 {% endblock %}
 
@@ -84,10 +96,12 @@
             <div style="margin-bottom: 15px;margin-right:50px">
                 {{ form_row(form.mail) }}
             </div>
-            <div style="margin-top: 60px;">
+            <div style="margin-top: 30px;">
                 {{ form_row(form.submit) }}
             </div>
             {{ form_end(form) }}
+            <a href="{{ path('user.add') }}" class="first-visit">First Visit?</a>
         </div>
     </body>
 {% endblock %}
+

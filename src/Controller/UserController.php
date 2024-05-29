@@ -8,7 +8,7 @@ use App\Entity\SousPoids;
 use App\Form\LoginType;
 use App\Form\UserType;
 use App\Controller\ExerciceController;
-use App\controleer\SousController;
+use App\Controller\SousController;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,24 +28,30 @@ class UserController extends AbstractController
             $data = $form->getData();
 
             // pour le compte admin
-            
             if ($data['username'] === 'mariam' && $data['mail'] === 'mariambahouri12@gmail.com') {
-               
-
                 return $this->redirectToRoute('admin');
             } else {
-
-                // Rechercher de lutilisateur dans la BD
+                // Rechercher de l'utilisateur dans la BD
                 $entityManager = $doctrine->getManager();
-                $user = $entityManager->getRepository(User::class)->findOneBy(['username' => $data['username'], 'mail' => $data['mail']]);
+                $user = $entityManager->getRepository(USER::class)->findOneBy(['username' => $data['username'], 'mail' => $data['mail']]);
 
                 if ($user) {
-                
-
                     return $this->redirectToRoute('user.fitness_start', ['id' => $user->getId()]);
                 } else {
-                    
-                    return $this->redirectToRoute('user.add');
+                   
+                    $newUser = new USER();
+                    $newUser->setUsername($data['username']);
+                    $newUser->setMail($data['mail']);
+                    $newUser->setMail($data['height']);
+                    $newUser->setMail($data['gender']);
+                    $newUser->setMail($data['weight']);
+                    $newUser->setMail($data['age']);
+
+
+                    $entityManager->persist($newUser);
+                    $entityManager->flush();
+
+                    return $this->redirectToRoute('user.fitness_start', ['id' => $newUser->getId()]);
                 }
             }
         }
@@ -74,16 +80,29 @@ class UserController extends AbstractController
         $user = new USER();
         $form = $this->createForm(UserType::class, $user);
         
-      
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Vérifier si l'utilisateur existe déjà
+            $existingUser = $entityManager->getRepository(USER::class)->findOneBy([
+                'username' => $user->getUsername(),
+                'mail' => $user->getMail()
+            ]);
 
- 
+            if ($existingUser) {
+               
+
+                $this->addFlash('error', 'Cet utilisateur existe déjà');
+
+            
+                return $this->redirectToRoute('user.add');
+            }
+
+      
             $entityManager->persist($user);
             $entityManager->flush();
 
-         
+      
             $this->addFlash('success', 'Utilisateur ajouté avec succès');
 
             return $this->redirectToRoute('user.welcome', ['id' => $user->getId()]);
@@ -155,7 +174,7 @@ class UserController extends AbstractController
         $exercises = [];
         $exercises1 = [];
     
-        // Récupérer tous les exercices
+     
         $exercises = $entityManager->getRepository(ExerciceSurPoidsFemme::class)->findAll();
         $exercises1 = $entityManager->getRepository(SousPoids::class)->findAll();
     
@@ -164,7 +183,7 @@ class UserController extends AbstractController
         if ($user->getWeight() > $poidsIdeal) {
             $path = 'user/Surpoids.html.twig';
         } elseif ($user->getWeight() < $poidsIdeal) {
-                // Charger le template SousPoidsFemme.html.twig ici
+             
                 return $this->render('user/SousPoids.html.twig', [
                     'user' => $user,
                     'exercises' => $exercises,
@@ -185,4 +204,3 @@ class UserController extends AbstractController
     }
     
 }
-
